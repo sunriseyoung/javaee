@@ -1,4 +1,4 @@
-package dev.edu.javaee.spring;
+package dev.edu.javaee.spring.bean;
 
 public class BeanDefinition {
 	private Object bean;
@@ -6,6 +6,16 @@ public class BeanDefinition {
 	private Class<?> beanClass;
 	
 	private String beanClassName;
+	
+	private PropertyValues propertyValues;
+
+	public PropertyValues getPropertyValues() {
+		return propertyValues;
+	}
+
+	public void setPropertyValues(PropertyValues propertyValues) {
+		this.propertyValues = propertyValues;
+	}
 
 	public Class<?> getBeanClass() {
 		return beanClass;

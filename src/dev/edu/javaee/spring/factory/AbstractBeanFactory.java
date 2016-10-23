@@ -3,7 +3,7 @@ package dev.edu.javaee.spring.factory;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import dev.edu.javaee.spring.BeanDefinition;
+import dev.edu.javaee.spring.bean.BeanDefinition;
 
 public abstract class AbstractBeanFactory implements BeanFactory{
 	private Map<String, BeanDefinition> beanDefinitionMap = new ConcurrentHashMap<String, BeanDefinition>();

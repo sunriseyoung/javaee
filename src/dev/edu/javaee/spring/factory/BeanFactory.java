@@ -1,6 +1,6 @@
 package dev.edu.javaee.spring.factory;
 
-import dev.edu.javaee.spring.BeanDefinition;
+import dev.edu.javaee.spring.bean.BeanDefinition;
 
 public interface BeanFactory {
 	Object getBean(String beanName);
