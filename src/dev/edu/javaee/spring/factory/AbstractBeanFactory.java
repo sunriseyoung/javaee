@@ -1,9 +1,11 @@
-package dev.edu.javaee.spring;
+package dev.edu.javaee.spring.factory;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class BeanFactory {
+import dev.edu.javaee.spring.BeanDefinition;
+
+public abstract class AbstractBeanFactory implements BeanFactory{
 	private Map<String, BeanDefinition> beanDefinitionMap = new ConcurrentHashMap<String, BeanDefinition>();
 	
 	public Object getBean(String beanName)
@@ -13,6 +15,9 @@ public class BeanFactory {
 	
 	public void registerBeanDefinition(String beanName, BeanDefinition beanDefinition)
 	{
+		beanDefinition = GetCreatedBean(beanDefinition);
 		this.beanDefinitionMap.put(beanName, beanDefinition);
 	}
+	
+	protected abstract BeanDefinition GetCreatedBean(BeanDefinition beanDefinition);
 }
