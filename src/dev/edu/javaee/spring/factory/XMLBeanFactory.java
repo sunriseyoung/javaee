@@ -4,6 +4,7 @@ import java.lang.reflect.Field;
 import java.util.List;
 
 import dev.edu.javaee.spring.bean.BeanDefinition;
+import dev.edu.javaee.spring.bean.BeanUtil;
 import dev.edu.javaee.spring.bean.PropertyValue;
 
 public class XMLBeanFactory extends AbstractBeanFactory{
@@ -20,19 +21,9 @@ public class XMLBeanFactory extends AbstractBeanFactory{
 			Object bean = beanClass.newInstance();	
 			
 			List<PropertyValue> fieldDefinitionList = beanDefinition.getPropertyValues().GetPropertyValues();
-			for(PropertyValue fieldDef: fieldDefinitionList)
+			for(PropertyValue propertyValue: fieldDefinitionList)
 			{
-				try {
-					Field field = beanClass.getDeclaredField(fieldDef.getName());
-					field.setAccessible(true);
-					field.set(bean, fieldDef.getValue());
-				} catch (NoSuchFieldException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (SecurityException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				BeanUtil.invokeSetterMethod(bean, propertyValue.getName(), propertyValue.getValue());
 			}
 			
 			beanDefinition.setBean(bean);
