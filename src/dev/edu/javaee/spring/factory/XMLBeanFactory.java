@@ -18,17 +18,18 @@ import dev.edu.javaee.spring.bean.BeanDefinition;
 import dev.edu.javaee.spring.bean.BeanUtil;
 import dev.edu.javaee.spring.bean.PropertyValue;
 import dev.edu.javaee.spring.bean.PropertyValues;
+import dev.edu.javaee.spring.resource.Resource;
 
 public class XMLBeanFactory extends AbstractBeanFactory{
 	
 	private String xmlPath;
 	
-	public XMLBeanFactory(String xmlPath)
+	public XMLBeanFactory(Resource resource)
 	{
 		try {
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder dbBuilder = dbFactory.newDocumentBuilder();
-			Document document = dbBuilder.parse(xmlPath);
+			Document document = dbBuilder.parse(resource.getInputStream());
             NodeList beanList = document.getElementsByTagName("bean");
             for(int i = 0 ; i < beanList.getLength(); i++)
             {
