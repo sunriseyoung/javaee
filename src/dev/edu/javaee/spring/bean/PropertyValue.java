@@ -1,9 +1,15 @@
 package dev.edu.javaee.spring.bean;
 
 public class PropertyValue {
+	public PropertyValue(String name, Object value) {
+		this.name = name;
+		this.value = value;
+	}
 	private String name;
 	
 	private Object value;
+	
+	
 	
 	public String getName() {
 		return name;

@@ -2,7 +2,7 @@ package test.edu.javaee.spring;
 
 public class Dishes {
 	private String dishName;
-	private int dishPrice;
+	private Integer dishPrice;
 	public String getDishName() {
 		return dishName;
 	}
@@ -10,10 +10,10 @@ public class Dishes {
 		this.dishName = dishName;
 	}
 	
-	public int getDishPrice() {
+	public Integer getDishPrice() {
 		return dishPrice;
 	}
-	public void setDishPrice(int dishPrice) {
+	public void setDishPrice(Integer dishPrice) {
 		this.dishPrice = dishPrice;
 	}
 	public String printDishes()
