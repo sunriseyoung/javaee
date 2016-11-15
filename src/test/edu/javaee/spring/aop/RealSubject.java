@@ -1,6 +1,5 @@
 package test.edu.javaee.spring.aop;
 
-import dev.edu.javaee.spring.aop.ISubject;
 
 public class RealSubject implements ISubject{
 

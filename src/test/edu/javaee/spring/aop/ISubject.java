@@ -1,4 +1,4 @@
-package dev.edu.javaee.spring.aop;
+package test.edu.javaee.spring.aop;
 
 public interface ISubject {
 	void printFirstMessage();

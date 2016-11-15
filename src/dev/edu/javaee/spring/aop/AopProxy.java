@@ -1,24 +1,24 @@
 package dev.edu.javaee.spring.aop;
 
-public class AopProxy implements ISubject{
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
 
-	private ISubject subject;
+
+public class AopProxy implements InvocationHandler{
+
+	private Object object;
 	
-	public AopProxy(ISubject subject)
+	public AopProxy(Object object)
 	{
-		this.subject = subject;
-	}
-	
-	@Override
-	public void printFirstMessage() {
-		System.out.println("before 1st Message");
-		subject.printFirstMessage();
+		this.object = object;
 	}
 
 	@Override
-	public void printSecondMessage() {
-		System.out.println("before 2nd Message");
-		subject.printSecondMessage();
+	public Object invoke(Object proxy, Method method, Object[] args)
+			throws Throwable {
+		
+		System.out.println("The Log Start");
+		return method.invoke( object, args);
 	}
 
 }
