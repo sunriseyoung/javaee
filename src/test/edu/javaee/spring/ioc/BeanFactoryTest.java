@@ -1,4 +1,4 @@
-package test.edu.javaee.spring;
+package test.edu.javaee.spring.ioc;
 
 import static org.junit.Assert.assertEquals;
 
