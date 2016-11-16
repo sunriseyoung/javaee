@@ -4,17 +4,19 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
-
 public class AopProxy implements InvocationHandler{
 
-	private Object object;
+	private Object target;
 	
-	private Class<?> objectClass;
+	private Class<?> targetClass;
 	
-	public AopProxy(Object object, Class<?> objectClass)
+	private MethodInterceptor methodInterceptor;
+	
+	public AopProxy(Object target, Class<?> targetClass, MethodInterceptor methodInterceptor)
 	{
-		this.object = object;
-		this.objectClass = objectClass;
+		this.target = target;
+		this.targetClass = targetClass;
+		this.methodInterceptor = methodInterceptor;
 	}
 	
 	public Object getProxy()
@@ -23,7 +25,7 @@ public class AopProxy implements InvocationHandler{
 //		System.out.println(objectClass);
 		return Proxy.newProxyInstance(
 				this.getClass().getClassLoader(),
-				new Class[]{objectClass}, 
+				new Class[]{targetClass}, 
 				this);
 	}
 
@@ -31,8 +33,7 @@ public class AopProxy implements InvocationHandler{
 	public Object invoke(Object proxy, Method method, Object[] args)
 			throws Throwable {
 		
-		System.out.println("The Log Start");
-		return method.invoke( object, args);
+		return methodInterceptor.invoke(target,method,args);
 	}
 
 }
