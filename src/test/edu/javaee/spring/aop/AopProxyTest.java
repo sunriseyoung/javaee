@@ -2,7 +2,9 @@ package test.edu.javaee.spring.aop;
 
 import org.junit.Test;
 
+import dev.edu.javaee.spring.aop.AdvisedSupport;
 import dev.edu.javaee.spring.aop.AopProxy;
+import dev.edu.javaee.spring.aop.TargetSource;
 
 public class AopProxyTest {
 	
@@ -10,7 +12,16 @@ public class AopProxyTest {
 	public void TestStaticProxy()
 	{
 		ISubject realSubject = new RealSubject();
-		AopProxy proxy = new AopProxy(realSubject, ISubject.class, new SimpleLogInterceptor());
+		
+		TargetSource targetSource = new TargetSource();
+		targetSource.setTarget(realSubject);
+		targetSource.setTargetClass(ISubject.class);
+		
+		AdvisedSupport advised = new AdvisedSupport();
+		advised.setTargetSource(targetSource);
+		advised.setMethodInterceptor(new SimpleLogInterceptor());
+		
+		AopProxy proxy = new AopProxy(advised);
 		ISubject subjectProy = (ISubject) proxy.getProxy();
 		
 		subjectProy.printFirstMessage();

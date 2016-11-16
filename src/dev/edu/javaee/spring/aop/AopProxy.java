@@ -6,17 +6,11 @@ import java.lang.reflect.Proxy;
 
 public class AopProxy implements InvocationHandler{
 
-	private Object target;
+	private AdvisedSupport advised;
 	
-	private Class<?> targetClass;
-	
-	private MethodInterceptor methodInterceptor;
-	
-	public AopProxy(Object target, Class<?> targetClass, MethodInterceptor methodInterceptor)
+	public AopProxy(AdvisedSupport advised)
 	{
-		this.target = target;
-		this.targetClass = targetClass;
-		this.methodInterceptor = methodInterceptor;
+		this.advised = advised;
 	}
 	
 	public Object getProxy()
@@ -25,7 +19,7 @@ public class AopProxy implements InvocationHandler{
 //		System.out.println(objectClass);
 		return Proxy.newProxyInstance(
 				this.getClass().getClassLoader(),
-				new Class[]{targetClass}, 
+				new Class[]{advised.getTargetSource().getTargetClass()}, 
 				this);
 	}
 
@@ -33,7 +27,7 @@ public class AopProxy implements InvocationHandler{
 	public Object invoke(Object proxy, Method method, Object[] args)
 			throws Throwable {
 		
-		return methodInterceptor.invoke(target,method,args);
+		return advised.getMethodInterceptor().invoke(advised.getTargetSource().getTarget(),method,args);
 	}
 
 }
