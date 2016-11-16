@@ -11,12 +11,11 @@ public class AopProxyTest {
 	@Test
 	public void TestStaticProxy()
 	{
-		ISubject subject = (ISubject) Proxy.newProxyInstance(
-				ISubject.class.getClassLoader(), 
-				new Class[] { ISubject.class },
-				new AopProxy(new RealSubject()));
+		ISubject realSubject = new RealSubject();
+		AopProxy proxy = new AopProxy(realSubject, ISubject.class);
+		ISubject subjectProy = (ISubject) proxy.getProxy();
 		
-		subject.printFirstMessage();
-		subject.printSecondMessage();
+		subjectProy.printFirstMessage();
+		subjectProy.printSecondMessage();
 	}
 }
