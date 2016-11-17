@@ -4,6 +4,8 @@ import org.junit.Test;
 
 import dev.edu.javaee.spring.aop.AdvisedSupport;
 import dev.edu.javaee.spring.aop.AopProxy;
+import dev.edu.javaee.spring.aop.MethodMatcher;
+import dev.edu.javaee.spring.aop.NameMatchMethodPointcut;
 import dev.edu.javaee.spring.aop.TargetSource;
 
 public class AopProxyTest {
@@ -20,6 +22,9 @@ public class AopProxyTest {
 		AdvisedSupport advised = new AdvisedSupport();
 		advised.setTargetSource(targetSource);
 		advised.setMethodInterceptor(new SimpleLogInterceptor());
+		NameMatchMethodPointcut methodMatcher = new NameMatchMethodPointcut();
+		methodMatcher.setMappedName("printSecondMessage");
+		advised.setMethodMatcher(methodMatcher);
 		
 		AopProxy proxy = new AopProxy(advised);
 		ISubject subjectProy = (ISubject) proxy.getProxy();

@@ -26,8 +26,9 @@ public class AopProxy implements InvocationHandler{
 	@Override
 	public Object invoke(Object proxy, Method method, Object[] args)
 			throws Throwable {
-		
-		return advised.getMethodInterceptor().invoke(advised.getTargetSource().getTarget(),method,args);
+		if(advised.getMethodMatcher().matches(method, advised.getTargetSource().getTarget().getClass()))
+			return advised.getMethodInterceptor().invoke(advised.getTargetSource().getTarget(),method,args);
+		return method.invoke(advised.getTargetSource().getTarget(), args);
 	}
 
 }
