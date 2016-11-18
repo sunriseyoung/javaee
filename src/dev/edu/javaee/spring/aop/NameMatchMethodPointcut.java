@@ -16,7 +16,7 @@ public class NameMatchMethodPointcut implements MethodMatcher{
 	
 	public void setMappedNames(String... names)
 	{
-		mappedNames.addAll(Arrays.asList(names));
+		mappedNames = Arrays.asList(names);
 	}
 	
 	@Override
