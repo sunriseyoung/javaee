@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-public class NameMatchMethodPointcut implements MethodMatcher{
+public class NameMatchMethodPointcut extends StaticMethodMatcherPointcut implements Pointcut{
 	
 	private List<String> mappedNames = new LinkedList<>();
 	

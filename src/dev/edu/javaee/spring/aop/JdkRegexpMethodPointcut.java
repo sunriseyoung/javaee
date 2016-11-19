@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class JdkRegexpMethodPointcut implements MethodMatcher{
+public class JdkRegexpMethodPointcut extends StaticMethodMatcherPointcut implements MethodMatcher{
 
 	private List<String> patterns = new LinkedList<>();
 	
