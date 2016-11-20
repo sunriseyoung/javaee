@@ -2,12 +2,12 @@ package test.edu.javaee.spring.aop;
 
 import org.junit.Test;
 
-import dev.edu.javaee.spring.aop.AdvisedSupport;
-import dev.edu.javaee.spring.aop.AopProxy;
-import dev.edu.javaee.spring.aop.JdkRegexpMethodPointcut;
 import dev.edu.javaee.spring.aop.MethodMatcher;
-import dev.edu.javaee.spring.aop.NameMatchMethodPointcut;
-import dev.edu.javaee.spring.aop.TargetSource;
+import dev.edu.javaee.spring.aop.framework.AopProxy;
+import dev.edu.javaee.spring.aop.support.AdvisedSupport;
+import dev.edu.javaee.spring.aop.support.JdkRegexpMethodPointcut;
+import dev.edu.javaee.spring.aop.support.NameMatchMethodPointcut;
+import dev.edu.javaee.spring.aop.support.TargetSource;
 
 public class AopProxyTest {
 	

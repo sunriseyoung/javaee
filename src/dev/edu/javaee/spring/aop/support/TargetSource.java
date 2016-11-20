@@ -1,4 +1,4 @@
-package dev.edu.javaee.spring.aop;
+package dev.edu.javaee.spring.aop.support;
 
 public class TargetSource {
 	private Object target;

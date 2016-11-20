@@ -1,6 +1,8 @@
-package dev.edu.javaee.spring.aop;
+package dev.edu.javaee.spring.aop.support;
 
 import java.lang.reflect.Method;
+
+import dev.edu.javaee.spring.aop.MethodMatcher;
 
 public abstract class StaticMethodMatcher implements MethodMatcher {
 	public boolean mathcer(Method method, Class<?> targetClass, Object... args)

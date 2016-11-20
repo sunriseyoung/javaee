@@ -1,4 +1,6 @@
-package dev.edu.javaee.spring.aop;
+package dev.edu.javaee.spring.aop.support;
+
+import dev.edu.javaee.spring.aop.Advice;
 
 public abstract class AbstractPointcutAdvisor implements PointcutAdvisor {
 

@@ -1,9 +1,11 @@
-package dev.edu.javaee.spring.aop;
+package dev.edu.javaee.spring.aop.support;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+
+import dev.edu.javaee.spring.aop.Pointcut;
 
 public class NameMatchMethodPointcut extends StaticMethodMatcherPointcut implements Pointcut{
 	
