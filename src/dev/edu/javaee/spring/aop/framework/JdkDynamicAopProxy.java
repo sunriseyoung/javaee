@@ -4,13 +4,14 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
+import dev.edu.javaee.spring.aop.AopProxy;
 import dev.edu.javaee.spring.aop.support.AdvisedSupport;
 
-public class AopProxy implements InvocationHandler{
+public class JdkDynamicAopProxy implements AopProxy, InvocationHandler{
 
 	private AdvisedSupport advised;
 	
-	public AopProxy(AdvisedSupport advised)
+	public JdkDynamicAopProxy(AdvisedSupport advised)
 	{
 		this.advised = advised;
 	}
@@ -21,7 +22,7 @@ public class AopProxy implements InvocationHandler{
 //		System.out.println(objectClass);
 		return Proxy.newProxyInstance(
 				this.getClass().getClassLoader(),
-				new Class[]{advised.getTargetSource().getTargetClass()}, 
+				new Class[]{advised.getInterfaces()}, 
 				this);
 	}
 
