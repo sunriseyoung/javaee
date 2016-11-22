@@ -7,7 +7,11 @@ import java.lang.reflect.Proxy;
 import dev.edu.javaee.spring.aop.AfterReturningAdvice;
 import dev.edu.javaee.spring.aop.AopProxy;
 import dev.edu.javaee.spring.aop.MethodBeforeAdvice;
+import dev.edu.javaee.spring.aop.MethodInterceptor;
 import dev.edu.javaee.spring.aop.ThrowsAdvice;
+import dev.edu.javaee.spring.aop.support.AfterReturningAdviceInterceptor;
+import dev.edu.javaee.spring.aop.support.MethodBeforeAdviceInterceptor;
+import dev.edu.javaee.spring.aop.support.ThrowsAdviceInterceptor;
 
 public class JdkDynamicAopProxy implements AopProxy, InvocationHandler{
 
@@ -20,8 +24,6 @@ public class JdkDynamicAopProxy implements AopProxy, InvocationHandler{
 	
 	public Object getProxy()
 	{
-//		System.out.println(object.getClass());
-//		System.out.println(objectClass);
 		return Proxy.newProxyInstance(
 				this.getClass().getClassLoader(),
 				new Class[]{advised.getInterfaces()}, 
@@ -35,27 +37,21 @@ public class JdkDynamicAopProxy implements AopProxy, InvocationHandler{
 		{
 			if(advised.getAdvice() instanceof MethodBeforeAdvice)
 			{
-				MethodBeforeAdvice methodBeforeAdvice = (MethodBeforeAdvice)advised.getAdvice();
-				methodBeforeAdvice.before(method, args, advised.getTargetSource().getTarget());
-				return method.invoke(advised.getTargetSource().getTarget(), args);
+				MethodBeforeAdvice advice = (MethodBeforeAdvice)advised.getAdvice();
+				MethodInterceptor interceptor = new MethodBeforeAdviceInterceptor(advice);
+				return interceptor.invoke(advised.getTargetSource().getTarget(), method, args);
 			}
 			if(advised.getAdvice() instanceof AfterReturningAdvice)
 			{
-				AfterReturningAdvice afterReturningAdvice = (AfterReturningAdvice)advised.getAdvice();
-				Object returnValue = method.invoke(advised.getTargetSource().getTarget(), args);
-				afterReturningAdvice.afterReturning(returnValue, method, args, advised.getTargetSource().getTarget());
-				return returnValue;
+				AfterReturningAdvice advice = (AfterReturningAdvice)advised.getAdvice();
+				MethodInterceptor interceptor = new AfterReturningAdviceInterceptor(advice);
+				return interceptor.invoke(advised.getTargetSource().getTarget(), method, args);
 			}
 			if(advised.getAdvice() instanceof ThrowsAdvice)
 			{
-				try {
-					Object returnValue = method.invoke(advised.getTargetSource().getTarget(), args);
-					return returnValue;
-				}
-				catch (Throwable ex) {
-					//We didn`t define our exceptionHandler for special exceptionClass, just simply throw the exception.
-					throw ex;
-				}
+				ThrowsAdvice advice = (ThrowsAdvice)advised.getAdvice();
+				MethodInterceptor interceptor = new ThrowsAdviceInterceptor(advice);
+				return interceptor.invoke(advised.getTargetSource().getTarget(), method, args);
 			}
 		}
 			
