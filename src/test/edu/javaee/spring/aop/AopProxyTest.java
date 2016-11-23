@@ -14,11 +14,8 @@ public class AopProxyTest {
 	{
 		ISubject realSubject = new RealSubject();
 		
-		TargetSource targetSource = new TargetSource();
-		targetSource.setTarget(realSubject);
-		
 		ProxyFactory proxyFactory = new ProxyFactory();
-		proxyFactory.setTargetSource(targetSource);
+		proxyFactory.setTarget(realSubject);
 		proxyFactory.setInterfaces(ISubject.class);
 		NameMatchMethodPointcutAdvisor advisor = new NameMatchMethodPointcutAdvisor();
 		advisor.setAdvice(new SimpleLogBeforeMehtod());
@@ -36,11 +33,8 @@ public class AopProxyTest {
 	{
 		ISubject realSubject = new RealSubject();
 		
-		TargetSource targetSource = new TargetSource();
-		targetSource.setTarget(realSubject);
-		
 		ProxyFactory proxyFactory = new ProxyFactory();
-		proxyFactory.setTargetSource(targetSource);
+		proxyFactory.setTarget(realSubject);
 		proxyFactory.setInterfaces(ISubject.class);
 		JdkRegexpMethodPointcutAdvisor advisor = new JdkRegexpMethodPointcutAdvisor();
 		advisor.setAdvice(new SimpleLogAfterReturningAdvice());

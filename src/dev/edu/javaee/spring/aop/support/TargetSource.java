@@ -3,7 +3,8 @@ package dev.edu.javaee.spring.aop.support;
 public class TargetSource {
 	private Object target;
 
-	public TargetSource() {
+	public TargetSource(Object target) {
+		this.target = target;
 	}
 
 	public Object getTarget() {

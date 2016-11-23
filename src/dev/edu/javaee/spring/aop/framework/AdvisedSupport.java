@@ -16,6 +16,9 @@ public class AdvisedSupport {
 	public void setTargetSource(TargetSource targetSource) {
 		this.targetSource = targetSource;
 	}
+	public void setTarget(Object target) {
+		this.targetSource = new TargetSource(target);
+	}
 	
 	public Class<?> getInterfaces() {
 		return interfaces;
