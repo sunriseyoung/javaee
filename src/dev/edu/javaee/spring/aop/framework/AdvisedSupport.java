@@ -1,5 +1,9 @@
 package dev.edu.javaee.spring.aop.framework;
 
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
+
 import dev.edu.javaee.spring.aop.Advisor;
 import dev.edu.javaee.spring.aop.support.TargetSource;
 
@@ -8,7 +12,7 @@ public class AdvisedSupport {
 	
 	private Class<?> interfaces;
 	
-	private Advisor advisor;
+	private List<Advisor> advisors = new LinkedList<>();
 	
 	public TargetSource getTargetSource() {
 		return targetSource;
@@ -26,10 +30,14 @@ public class AdvisedSupport {
 	public void setInterfaces(Class<?> interfaces) {
 		this.interfaces = interfaces;
 	}
-	public Advisor getAdvisor() {
-		return advisor;
+	public List<Advisor> getAdvisors() {
+		return advisors;
 	}
-	public void setAdvisor(Advisor advisor) {
-		this.advisor = advisor;
+	public void addAdvisor(Advisor advisor) {
+		this.advisors.add(advisor);
+	}
+	public void addAdvisors(Collection<Advisor> advisors)
+	{
+		this.advisors.addAll(advisors);
 	}
 }

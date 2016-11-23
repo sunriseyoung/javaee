@@ -1,7 +1,7 @@
 package dev.edu.javaee.spring.aop;
 
-import java.lang.reflect.Method;
+import dev.edu.javaee.spring.aop.framework.MethodInvocation;
 
 public interface MethodInterceptor {
-	Object invoke(Object target,Method method,Object[] args) throws Throwable;
+	Object invoke(MethodInvocation methodInvocation) throws Throwable;
 }

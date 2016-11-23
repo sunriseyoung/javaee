@@ -1,9 +1,8 @@
 package dev.edu.javaee.spring.aop.support;
 
-import java.lang.reflect.Method;
-
 import dev.edu.javaee.spring.aop.MethodBeforeAdvice;
 import dev.edu.javaee.spring.aop.MethodInterceptor;
+import dev.edu.javaee.spring.aop.framework.MethodInvocation;
 
 public class MethodBeforeAdviceInterceptor implements MethodInterceptor {
 
@@ -15,9 +14,9 @@ public class MethodBeforeAdviceInterceptor implements MethodInterceptor {
 	}
 	
 	@Override
-	public Object invoke(Object target, Method method, Object[] args) throws Throwable {
-		advice.before(method, args, target);
-		return method.invoke(target, args);
+	public Object invoke(MethodInvocation methodInvocation) throws Throwable {
+		advice.before(methodInvocation.getMethod(), methodInvocation.getArguments(), methodInvocation.getThis());
+		return methodInvocation.proceed();
 	}
 
 }
