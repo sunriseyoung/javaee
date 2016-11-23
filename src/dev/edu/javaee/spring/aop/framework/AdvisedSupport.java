@@ -1,7 +1,6 @@
 package dev.edu.javaee.spring.aop.framework;
 
-import dev.edu.javaee.spring.aop.Advice;
-import dev.edu.javaee.spring.aop.MethodMatcher;
+import dev.edu.javaee.spring.aop.Advisor;
 import dev.edu.javaee.spring.aop.support.TargetSource;
 
 public class AdvisedSupport {
@@ -9,9 +8,7 @@ public class AdvisedSupport {
 	
 	private Class<?> interfaces;
 	
-	private MethodMatcher methodMatcher;
-	
-	private Advice advice;
+	private Advisor advisor;
 	
 	public TargetSource getTargetSource() {
 		return targetSource;
@@ -20,22 +17,16 @@ public class AdvisedSupport {
 		this.targetSource = targetSource;
 	}
 	
-	public MethodMatcher getMethodMatcher() {
-		return methodMatcher;
-	}
-	public void setMethodMatcher(MethodMatcher methodMatcher) {
-		this.methodMatcher = methodMatcher;
-	}
 	public Class<?> getInterfaces() {
 		return interfaces;
 	}
 	public void setInterfaces(Class<?> interfaces) {
 		this.interfaces = interfaces;
 	}
-	public Advice getAdvice() {
-		return advice;
+	public Advisor getAdvisor() {
+		return advisor;
 	}
-	public void setAdvice(Advice advice) {
-		this.advice = advice;
+	public void setAdvisor(Advisor advisor) {
+		this.advisor = advisor;
 	}
 }

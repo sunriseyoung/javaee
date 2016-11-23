@@ -3,8 +3,8 @@ package test.edu.javaee.spring.aop;
 import org.junit.Test;
 
 import dev.edu.javaee.spring.aop.framework.ProxyFactory;
-import dev.edu.javaee.spring.aop.support.JdkRegexpMethodPointcut;
-import dev.edu.javaee.spring.aop.support.NameMatchMethodPointcut;
+import dev.edu.javaee.spring.aop.support.JdkRegexpMethodPointcutAdvisor;
+import dev.edu.javaee.spring.aop.support.NameMatchMethodPointcutAdvisor;
 import dev.edu.javaee.spring.aop.support.TargetSource;
 
 public class AopProxyTest {
@@ -19,11 +19,11 @@ public class AopProxyTest {
 		
 		ProxyFactory proxyFactory = new ProxyFactory();
 		proxyFactory.setTargetSource(targetSource);
-		proxyFactory.setAdvice(new SimpleLogBeforeMehtod());
 		proxyFactory.setInterfaces(ISubject.class);
-		NameMatchMethodPointcut methodMatcher = new NameMatchMethodPointcut();
-		methodMatcher.setMappedName("printSecondMessage");
-		proxyFactory.setMethodMatcher(methodMatcher);
+		NameMatchMethodPointcutAdvisor advisor = new NameMatchMethodPointcutAdvisor();
+		advisor.setAdvice(new SimpleLogBeforeMehtod());
+		advisor.setMappedName("printSecondMessage");
+		proxyFactory.setAdvisor(advisor);
 		
 		ISubject subjectProy = (ISubject) proxyFactory.getProxy();
 		
@@ -41,11 +41,11 @@ public class AopProxyTest {
 		
 		ProxyFactory proxyFactory = new ProxyFactory();
 		proxyFactory.setTargetSource(targetSource);
-		proxyFactory.setAdvice(new SimpleLogAfterReturningAdvice());
 		proxyFactory.setInterfaces(ISubject.class);
-		JdkRegexpMethodPointcut methodMatcher = new JdkRegexpMethodPointcut();
-		methodMatcher.setPattern("printSecond\\w+");
-		proxyFactory.setMethodMatcher(methodMatcher);
+		JdkRegexpMethodPointcutAdvisor advisor = new JdkRegexpMethodPointcutAdvisor();
+		advisor.setAdvice(new SimpleLogAfterReturningAdvice());
+		advisor.setPattern("printSecond\\w+");
+		proxyFactory.setAdvisor(advisor);
 		
 		ISubject subjectProy = (ISubject) proxyFactory.getProxy();
 		

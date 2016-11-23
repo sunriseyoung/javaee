@@ -5,9 +5,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-import dev.edu.javaee.spring.aop.Pointcut;
-
-public class NameMatchMethodPointcut extends StaticMethodMatcherPointcut implements Pointcut{
+public class NameMatchMethodPointcut extends StaticMethodMatcherPointcut{
 	
 	private List<String> mappedNames = new LinkedList<>();
 	

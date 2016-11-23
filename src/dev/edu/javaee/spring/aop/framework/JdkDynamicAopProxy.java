@@ -11,6 +11,7 @@ import dev.edu.javaee.spring.aop.MethodInterceptor;
 import dev.edu.javaee.spring.aop.ThrowsAdvice;
 import dev.edu.javaee.spring.aop.support.AfterReturningAdviceInterceptor;
 import dev.edu.javaee.spring.aop.support.MethodBeforeAdviceInterceptor;
+import dev.edu.javaee.spring.aop.support.PointcutAdvisor;
 import dev.edu.javaee.spring.aop.support.ThrowsAdviceInterceptor;
 
 public class JdkDynamicAopProxy implements AopProxy, InvocationHandler{
@@ -33,23 +34,27 @@ public class JdkDynamicAopProxy implements AopProxy, InvocationHandler{
 	@Override
 	public Object invoke(Object proxy, Method method, Object[] args)
 			throws Throwable {
-		if(advised.getMethodMatcher().matches(method, advised.getTargetSource().getTarget().getClass()))
+		
+		PointcutAdvisor pointcutAdvisor = (PointcutAdvisor) advised.getAdvisor();
+		
+		if(pointcutAdvisor.getPointcut().getMethodMatcher().matches(method, advised.getTargetSource().getTarget().getClass()))
 		{
-			if(advised.getAdvice() instanceof MethodBeforeAdvice)
+			
+			if(advised.getAdvisor().getAdvice() instanceof MethodBeforeAdvice)
 			{
-				MethodBeforeAdvice advice = (MethodBeforeAdvice)advised.getAdvice();
+				MethodBeforeAdvice advice = (MethodBeforeAdvice)advised.getAdvisor().getAdvice();
 				MethodInterceptor interceptor = new MethodBeforeAdviceInterceptor(advice);
 				return interceptor.invoke(advised.getTargetSource().getTarget(), method, args);
 			}
-			if(advised.getAdvice() instanceof AfterReturningAdvice)
+			if(advised.getAdvisor().getAdvice() instanceof AfterReturningAdvice)
 			{
-				AfterReturningAdvice advice = (AfterReturningAdvice)advised.getAdvice();
+				AfterReturningAdvice advice = (AfterReturningAdvice)advised.getAdvisor().getAdvice();
 				MethodInterceptor interceptor = new AfterReturningAdviceInterceptor(advice);
 				return interceptor.invoke(advised.getTargetSource().getTarget(), method, args);
 			}
-			if(advised.getAdvice() instanceof ThrowsAdvice)
+			if(advised.getAdvisor().getAdvice() instanceof ThrowsAdvice)
 			{
-				ThrowsAdvice advice = (ThrowsAdvice)advised.getAdvice();
+				ThrowsAdvice advice = (ThrowsAdvice)advised.getAdvisor().getAdvice();
 				MethodInterceptor interceptor = new ThrowsAdviceInterceptor(advice);
 				return interceptor.invoke(advised.getTargetSource().getTarget(), method, args);
 			}
